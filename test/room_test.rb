@@ -6,9 +6,21 @@ require './lib/room'
 class RoomTest < Minitest::Test
 
   def test_it_exists
-    bedroom_1 = Room.new(:bedroom, 11, 12)
+    room = Room.new(:bedroom, 10, 13)
 
-    assert_instance_of Room, bedroom_1
+    assert_instance_of Room, room
+  end
+
+  def test_it_has_category
+    room = Room.new(:bedroom, 10, 13)
+
+    assert_equal :bedroom, room.category
+  end
+
+  def test_it_can_calculate_room_area
+    room = Room.new(:bedroom, 10, 13)
+    
+    assert_equal 130, room.area
   end
 
 end
