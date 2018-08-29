@@ -27,15 +27,15 @@ class House
     end
   end
 
-  def price_to_float
+  def price_per_square_foot
+    (price_to_float / area).round(2)
+  end
+
+  def price_to_float # helper to price_per_square_foot
     price_array = @price.chars.map do |char|
       char.to_i
     end
     price_float = price_array.join.to_f
-  end
-
-  def price_per_square_foot
-    (price_to_float / area).round(2)
   end
 
   def rooms_sorted_by_area
@@ -46,10 +46,10 @@ class House
 
   def rooms_by_category
     categories = create_category_hash
-    category_arrays(categories)
+    add_arrays(categories)
   end
 
-  def create_category_hash
+  def create_category_hash # helper to rooms_by_category
     categories = {}
     @rooms.each do |room|
       categories[room.category] = []
@@ -57,7 +57,7 @@ class House
     return categories
   end
 
-  def category_arrays(categories)
+  def add_arrays(categories) # helper to rooms_by_category
     categories.each do |category, array|
       array = @rooms.select do |room|
         room.category == category
