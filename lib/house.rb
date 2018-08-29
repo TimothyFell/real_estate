@@ -27,4 +27,43 @@ class House
     end
   end
 
+  def price_to_float
+    price_array = @price.chars.map do |char|
+      char.to_i
+    end
+    price_float = price_array.join.to_f
+  end
+
+  def price_per_square_foot
+    (price_to_float / area).round(2)
+  end
+
+  def rooms_sorted_by_area
+    @rooms.sort do |room_1, room_2|
+      room_2.area <=> room_1.area
+    end
+  end
+
+  def rooms_by_category
+    categories = create_category_hash
+    category_arrays(categories)
+  end
+
+  def create_category_hash
+    categories = {}
+    @rooms.each do |room|
+      categories[room.category] = []
+    end
+    return categories
+  end
+
+  def category_arrays(categories)
+    categories.each do |category, array|
+      array = @rooms.select do |room|
+        room.category == category
+      end
+      categories[category] = array
+    end
+  end
+
 end
